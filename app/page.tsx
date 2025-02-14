@@ -1,101 +1,113 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from "react";
+import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
+
+interface LocalJournal {
+    id: number;
+    title: string;
+    journal: string;
+    issn: string;
+    eissn: string;
+    pissn: string;
+}
+
+interface Article {
+    title: string;
+    author: string;
+    journal: string;
+    doi: string;
+    url: string;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    const [searchTerm, setSearchTerm] = useState('');
+    const [localResults, setLocalResults] = useState<LocalJournal[]>([]);
+    const [externalResults, setExternalResults] = useState<Article[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    const handleSearch = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`);
+        const data = await res.json();
+        setLocalResults(data.localResults || []);
+        setExternalResults(data.externalResults || []);
+    };
+
+    const placeholders = [
+      "What's the first rule of Fight Club?",
+      "Who is Tyler Durden?",
+      "Where is Andrew Laeddis Hiding?",
+      "Write a Javascript method to reverse a string",
+      "How to assemble your own PC?",
+    ];
+   
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value);
+    };
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      console.log("submitted");
+    };
+
+
+    return (
+        <div className="p-6">
+              <div className="h-[40rem] flex flex-col justify-center  items-center px-4">
+      <h2 className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-black">
+        Cari Jurnal Bereputasi
+      </h2>
+      <PlaceholdersAndVanishInput
+        placeholders={placeholders}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onSubmit={handleSearch}
+      />
     </div>
-  );
+           
+
+            <div className="grid grid-cols-2 gap-4 mt-6">
+                {/* 🔹 Hasil dari Database Lokal */}
+                
+                <div>
+                    <h2 className="text-xl font-semibold mb-2">📚 Dari Database Sinta</h2>
+                    {localResults.length === 0 ? (
+                        <p className="text-gray-500">Tidak ada hasil ditemukan.</p>
+                    ) : (
+                      
+                        <ul>
+                            {localResults.map((item) => (
+                                <li key={item.id} className="border p-2 my-2">
+                                    <h3 className="font-semibold">{item.title}</h3>
+                                    <p className="text-gray-600">Subjek: {item.journal}</p>
+                                    <p className="text-gray-500">
+                                        ISSN: {item.issn} | eISSN: {item.eissn} | PISSN: {item.pissn}
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
+                {/* 🔹 Hasil dari API Elsevier */}
+                <div>
+                    <h2 className="text-xl font-semibold mb-2">🌐 Dari API Elsevier</h2>
+                    {externalResults.length === 0 ? (
+                        <p className="text-gray-500">Tidak ada hasil ditemukan.</p>
+                    ) : (
+                        <ul>
+                            {externalResults.map((article, index) => (
+                                <li key={index} className="border p-2 my-2">
+                                    <h3 className="font-semibold">{article.title}</h3>
+                                    <p className="text-gray-600">Penulis: {article.author}</p>
+                                    <p className="text-gray-500">Jurnal: {article.journal}</p>
+                                    <p className="text-blue-500">
+                                        <a href={article.url} target="_blank" rel="noopener noreferrer">DOI: {article.doi}</a>
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 }
