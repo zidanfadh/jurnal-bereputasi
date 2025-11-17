@@ -43,16 +43,17 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden"
+                className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden"
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {isLocal ? '📚 SINTA Database' : '🌐 Elsevier API'}
+                <div className="flex items-center justify-between p-5 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 border-b-2 border-gray-200 dark:border-gray-800">
+                    <span className="text-sm font-bold text-black dark:text-white flex items-center gap-2">
+                        <span className="text-xl">{isLocal ? '📚' : '🌐'}</span>
+                        {isLocal ? 'SINTA Database' : 'Elsevier API'}
                     </span>
                     <button
                         onClick={onClose}
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                        className="p-2 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +61,7 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                             height="20"
                             fill="none"
                             viewBox="0 0 24 24"
-                            className="text-gray-600 dark:text-gray-400"
+                            className="text-black dark:text-white"
                         >
                             <path
                                 fill="currentColor"
@@ -72,35 +73,21 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                     </button>
                 </div>
 
-                {/* Loading Line Animation */}
-                <div className="h-1 bg-gray-100 dark:bg-gray-900 overflow-hidden">
-                    <motion.div
-                        className="h-full bg-blue-500"
-                        initial={{ x: '-100%' }}
-                        animate={{ x: '100%' }}
-                        transition={{
-                            repeat: Infinity,
-                            duration: 1.5,
-                            ease: 'linear'
-                        }}
-                    />
-                </div>
-
                 {/* Body */}
-                <div className="p-4 max-h-[600px] overflow-y-auto">
-                    <div className="space-y-4">
+                <div className="p-6 max-h-[600px] overflow-y-auto">
+                    <div className="space-y-5">
                         {/* Title & Actions */}
-                        <div className="flex items-start justify-between gap-3">
-                            <h3 className="flex-1 text-lg font-semibold text-gray-900 dark:text-white">
+                        <div className="flex items-start justify-between gap-4">
+                            <h3 className="flex-1 text-xl font-bold text-black dark:text-white leading-tight">
                                 {isLocal ? localJournal.title : externalJournal.title}
                             </h3>
                             <div className="flex items-center gap-2">
-                                <button className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-1">
-                                    <span>Save to...</span>
+                                <button className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-sm font-bold rounded-lg transition-colors hover:bg-gray-800 dark:hover:bg-gray-100 flex items-center gap-2 shadow-md">
+                                    <span>Save</span>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="16"
-                                        height="16"
+                                        width="14"
+                                        height="14"
                                         fill="none"
                                         viewBox="0 0 24 25"
                                     >
@@ -110,13 +97,14 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                                         />
                                     </svg>
                                 </button>
-                                <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
+                                <button className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="18"
                                         height="18"
                                         fill="none"
                                         viewBox="0 0 24 24"
+                                        className="text-black dark:text-white"
                                     >
                                         <path
                                             fill="currentColor"
@@ -128,13 +116,13 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                         </div>
 
                         {/* Journal Info */}
-                        <div className="flex flex-col gap-2">
-                            <p className="text-gray-700 dark:text-gray-300 font-medium">
+                        <div className="space-y-2">
+                            <p className="text-black dark:text-white font-bold text-lg">
                                 {isLocal ? localJournal.journal : externalJournal.journal}
                             </p>
                             {!isLocal && externalJournal.author && (
                                 <p className="text-gray-600 dark:text-gray-400 text-sm">
-                                    Authors: {externalJournal.author}
+                                    <span className="font-semibold">Author:</span> {externalJournal.author}
                                 </p>
                             )}
                         </div>
@@ -144,17 +132,17 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                             {isLocal ? (
                                 <>
                                     {localJournal.issn && (
-                                        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">
+                                        <span className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-semibold">
                                             ISSN: {localJournal.issn}
                                         </span>
                                     )}
                                     {localJournal.eissn && (
-                                        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">
+                                        <span className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-semibold">
                                             eISSN: {localJournal.eissn}
                                         </span>
                                     )}
                                     {localJournal.pissn && (
-                                        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">
+                                        <span className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-semibold">
                                             PISSN: {localJournal.pissn}
                                         </span>
                                     )}
@@ -166,7 +154,7 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                                             href={externalJournal.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full text-sm hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                                            className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full text-sm font-bold hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                                         >
                                             DOI: {externalJournal.doi}
                                         </a>
@@ -176,12 +164,12 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                         </div>
 
                         {/* Notes Section */}
-                        <div className="relative border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                        <div className="relative border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 bg-gray-50 dark:bg-gray-950">
                             <textarea
                                 value={note}
                                 onChange={(e) => setNote(e.target.value)}
-                                placeholder="Add note..."
-                                className="w-full min-h-[60px] bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 outline-none resize-none"
+                                placeholder="Tambahkan catatan..."
+                                className="w-full min-h-[80px] bg-transparent text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 outline-none resize-none font-medium"
                             />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -189,9 +177,9 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                                 height="20"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                className="absolute top-3 left-3 text-gray-400"
+                                className="absolute top-4 left-4 text-gray-300 dark:text-gray-600"
                             >
-                                <g fill="currentColor" clipPath="url(#a)">
+                                <g fill="currentColor">
                                     <path d="M16.64 12.92a.81.81 0 1 0 0-1.62H7.36a.81.81 0 1 0 0 1.62zM7.36 8.06h9.3a.81.81 0 1 0 0-1.63h-9.3a.81.81 0 1 0 0 1.63" />
                                     <path d="M19.37 1.55H4.63a3 3 0 0 0-3.01 3v14.89a3 3 0 0 0 2.99 3.01l11.83-.02c.8 0 1.57-.31 2.12-.88l2.9-2.9c.57-.58.88-1.33.88-2.12V4.54c.04-1.65-1.32-2.99-2.97-2.99M4.63 20.82q-.56 0-.97-.4t-.4-.96V4.54c0-.75.62-1.36 1.37-1.36h14.74c.75 0 1.36.61 1.36 1.36v11.64h-3.52c-.61 0-1.1.5-1.1 1.1v3.52z" />
                                 </g>
@@ -200,7 +188,7 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
 
                         {/* Abstract */}
                         {!isLocal && (
-                            <p className="text-gray-600 dark:text-gray-400 text-sm italic">
+                            <p className="text-gray-500 dark:text-gray-400 text-sm italic">
                                 No abstract available
                             </p>
                         )}
@@ -208,23 +196,23 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                 </div>
 
                 {/* Dive Deeper Section */}
-                <div className="border-t border-gray-200 dark:border-gray-700">
+                <div className="border-t-2 border-gray-200 dark:border-gray-800">
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                        className="w-full p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                     >
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Dive deeper on this article
+                        <h4 className="font-bold text-black dark:text-white">
+                            Dive Deeper
                         </h4>
                         <motion.svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
+                            width="24"
+                            height="24"
                             fill="none"
                             viewBox="0 0 24 25"
-                            className="text-gray-600 dark:text-gray-400"
+                            className="text-black dark:text-white"
                             animate={{ rotate: isExpanded ? 180 : 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: 0.3 }}
                         >
                             <path
                                 fill="currentColor"
@@ -242,23 +230,23 @@ export default function JournalPreview({ journal, type, onClose }: JournalPrevie
                                 transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                             >
-                                <div className="px-4 pb-4 flex items-center gap-2">
-                                    <button className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors">
+                                <div className="px-5 pb-5 flex items-center gap-3">
+                                    <button className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-all font-bold">
                                         <div className="flex items-center justify-between">
-                                            <span className="font-medium text-gray-900 dark:text-white">Similar</span>
-                                            <span className="text-gray-600 dark:text-gray-400">1.4k</span>
+                                            <span className="text-black dark:text-white">Similar</span>
+                                            <span className="text-gray-500 dark:text-gray-400">1.4k</span>
                                         </div>
                                     </button>
-                                    <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <span className="font-medium text-gray-900 dark:text-white">Refs</span>
-                                            <span className="text-gray-600 dark:text-gray-400">0</span>
+                                    <button className="px-4 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-all font-bold">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <span className="text-black dark:text-white">Refs</span>
+                                            <span className="text-gray-500 dark:text-gray-400">0</span>
                                         </div>
                                     </button>
-                                    <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <span className="font-medium text-gray-900 dark:text-white">Cited By</span>
-                                            <span className="text-gray-600 dark:text-gray-400">37</span>
+                                    <button className="px-4 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-all font-bold">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <span className="text-black dark:text-white">Cited</span>
+                                            <span className="text-gray-500 dark:text-gray-400">37</span>
                                         </div>
                                     </button>
                                 </div>

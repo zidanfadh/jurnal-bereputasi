@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Slider from '@radix-ui/react-slider';
 import * as Switch from '@radix-ui/react-switch';
@@ -56,22 +55,22 @@ export default function AdvancedFilters({
             {/* Toggle Button */}
             <motion.button
                 onClick={onToggle}
-                className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow"
+                className="w-full bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex items-center justify-between hover:border-black dark:hover:border-white transition-all shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
             >
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                    Pencarian Mendalam
+                <h4 className="text-lg font-bold text-black dark:text-white">
+                    Advanced Search
                 </h4>
                 <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="24"
+                    height="24"
                     fill="none"
                     viewBox="0 0 24 24"
-                    className="text-gray-600 dark:text-gray-400"
+                    className="text-black dark:text-white"
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.3 }}
                 >
                     <path
                         fill="currentColor"
@@ -90,11 +89,11 @@ export default function AdvancedFilters({
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                     >
-                        <div className="bg-white dark:bg-gray-800 border border-t-0 border-gray-200 dark:border-gray-700 rounded-b-lg">
-                            <div className="p-4 space-y-4 max-h-[600px] overflow-y-auto">
+                        <div className="bg-white dark:bg-gray-900 border-2 border-t-0 border-gray-200 dark:border-gray-800 rounded-b-2xl shadow-xl">
+                            <div className="p-6 space-y-6 max-h-[600px] overflow-y-auto">
                                 {/* Advanced Settings Header */}
-                                <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-700">
-                                    <h5 className="font-semibold text-gray-900 dark:text-white">
+                                <div className="pb-4 border-b-2 border-gray-200 dark:border-gray-800">
+                                    <h5 className="text-base font-bold text-black dark:text-white">
                                         Pengaturan Lanjutan
                                     </h5>
                                 </div>
@@ -110,7 +109,7 @@ export default function AdvancedFilters({
                                         value={filters.keywords}
                                         onChange={(e) => onFiltersChange({ ...filters, keywords: e.target.value })}
                                         placeholder="Ketik kata kunci khusus..."
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                                        className="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent outline-none bg-white dark:bg-gray-950 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
                                     />
                                 </FilterItem>
 
@@ -120,8 +119,8 @@ export default function AdvancedFilters({
                                     onReset={() => resetFilter('yearRange')}
                                     showReset={filters.yearRange[0] !== 1950 || filters.yearRange[1] !== 2025}
                                 >
-                                    <div className="space-y-3">
-                                        <div className="flex items-center gap-2 text-sm">
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-3 text-sm font-medium">
                                             <input
                                                 type="number"
                                                 min={1950}
@@ -131,9 +130,9 @@ export default function AdvancedFilters({
                                                     ...filters,
                                                     yearRange: [parseInt(e.target.value) || 1950, filters.yearRange[1]]
                                                 })}
-                                                className="w-20 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-900"
+                                                className="w-24 px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white outline-none bg-white dark:bg-gray-950 text-black dark:text-white"
                                             />
-                                            <span className="text-gray-500">–</span>
+                                            <span className="text-gray-400">–</span>
                                             <input
                                                 type="number"
                                                 min={filters.yearRange[0]}
@@ -143,22 +142,22 @@ export default function AdvancedFilters({
                                                     ...filters,
                                                     yearRange: [filters.yearRange[0], parseInt(e.target.value) || 2025]
                                                 })}
-                                                className="w-20 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-900"
+                                                className="w-24 px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white outline-none bg-white dark:bg-gray-950 text-black dark:text-white"
                                             />
                                         </div>
                                         <Slider.Root
-                                            className="relative flex items-center select-none touch-none w-full h-5"
+                                            className="relative flex items-center select-none touch-none w-full h-6"
                                             value={filters.yearRange}
                                             onValueChange={(value) => onFiltersChange({ ...filters, yearRange: value as [number, number] })}
                                             min={1950}
                                             max={2025}
                                             step={1}
                                         >
-                                            <Slider.Track className="bg-gray-200 dark:bg-gray-700 relative grow rounded-full h-1">
-                                                <Slider.Range className="absolute bg-blue-500 rounded-full h-full" />
+                                            <Slider.Track className="bg-gray-200 dark:bg-gray-800 relative grow rounded-full h-2">
+                                                <Slider.Range className="absolute bg-black dark:bg-white rounded-full h-full" />
                                             </Slider.Track>
-                                            <Slider.Thumb className="block w-4 h-4 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            <Slider.Thumb className="block w-4 h-4 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                            <Slider.Thumb className="block w-5 h-5 bg-white dark:bg-gray-950 border-2 border-black dark:border-white rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-transform shadow-md" />
+                                            <Slider.Thumb className="block w-5 h-5 bg-white dark:bg-gray-950 border-2 border-black dark:border-white rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-transform shadow-md" />
                                         </Slider.Root>
                                     </div>
                                 </FilterItem>
@@ -169,15 +168,15 @@ export default function AdvancedFilters({
                                     onReset={() => resetFilter('quartiles')}
                                     showReset={filters.quartiles.length > 0}
                                 >
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2.5">
                                         {quartileOptions.map((q) => (
                                             <button
                                                 key={q}
                                                 onClick={() => handleQuartileToggle(q)}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                                                className={`flex-1 px-4 py-2.5 rounded-xl font-bold transition-all ${
                                                     filters.quartiles.includes(q)
-                                                        ? 'bg-blue-500 text-white shadow-md'
-                                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                        ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg scale-105'
+                                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                                 }`}
                                             >
                                                 {q}
@@ -192,8 +191,8 @@ export default function AdvancedFilters({
                                     onReset={() => resetFilter('hIndexRange')}
                                     showReset={filters.hIndexRange[0] !== 0 || filters.hIndexRange[1] !== 1500}
                                 >
-                                    <div className="space-y-3">
-                                        <div className="flex items-center gap-2 text-sm">
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-3 text-sm font-medium">
                                             <input
                                                 type="number"
                                                 min={0}
@@ -203,9 +202,9 @@ export default function AdvancedFilters({
                                                     ...filters,
                                                     hIndexRange: [parseInt(e.target.value) || 0, filters.hIndexRange[1]]
                                                 })}
-                                                className="w-20 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-900"
+                                                className="w-24 px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white outline-none bg-white dark:bg-gray-950 text-black dark:text-white"
                                             />
-                                            <span className="text-gray-500">–</span>
+                                            <span className="text-gray-400">–</span>
                                             <input
                                                 type="number"
                                                 min={filters.hIndexRange[0]}
@@ -215,22 +214,22 @@ export default function AdvancedFilters({
                                                     ...filters,
                                                     hIndexRange: [filters.hIndexRange[0], parseInt(e.target.value) || 1500]
                                                 })}
-                                                className="w-20 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-900"
+                                                className="w-24 px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white outline-none bg-white dark:bg-gray-950 text-black dark:text-white"
                                             />
                                         </div>
                                         <Slider.Root
-                                            className="relative flex items-center select-none touch-none w-full h-5"
+                                            className="relative flex items-center select-none touch-none w-full h-6"
                                             value={filters.hIndexRange}
                                             onValueChange={(value) => onFiltersChange({ ...filters, hIndexRange: value as [number, number] })}
                                             min={0}
                                             max={1500}
                                             step={10}
                                         >
-                                            <Slider.Track className="bg-gray-200 dark:bg-gray-700 relative grow rounded-full h-1">
-                                                <Slider.Range className="absolute bg-blue-500 rounded-full h-full" />
+                                            <Slider.Track className="bg-gray-200 dark:bg-gray-800 relative grow rounded-full h-2">
+                                                <Slider.Range className="absolute bg-black dark:bg-white rounded-full h-full" />
                                             </Slider.Track>
-                                            <Slider.Thumb className="block w-4 h-4 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            <Slider.Thumb className="block w-4 h-4 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                            <Slider.Thumb className="block w-5 h-5 bg-white dark:bg-gray-950 border-2 border-black dark:border-white rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-transform shadow-md" />
+                                            <Slider.Thumb className="block w-5 h-5 bg-white dark:bg-gray-950 border-2 border-black dark:border-white rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-transform shadow-md" />
                                         </Slider.Root>
                                     </div>
                                 </FilterItem>
@@ -244,9 +243,9 @@ export default function AdvancedFilters({
                                     <Switch.Root
                                         checked={filters.openAccess}
                                         onCheckedChange={(checked) => onFiltersChange({ ...filters, openAccess: checked })}
-                                        className="w-11 h-6 bg-gray-300 dark:bg-gray-700 rounded-full relative data-[state=checked]:bg-blue-500 transition-colors outline-none cursor-pointer"
+                                        className="w-14 h-7 bg-gray-200 dark:bg-gray-800 rounded-full relative data-[state=checked]:bg-black dark:data-[state=checked]:bg-white transition-colors outline-none cursor-pointer shadow-inner"
                                     >
-                                        <Switch.Thumb className="block w-5 h-5 bg-white rounded-full transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[22px]" />
+                                        <Switch.Thumb className="block w-6 h-6 bg-white dark:bg-gray-950 rounded-full transition-transform duration-200 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[30px] shadow-md border-2 border-gray-300 dark:border-gray-700 data-[state=checked]:border-black dark:data-[state=checked]:border-white" />
                                     </Switch.Root>
                                 </FilterItem>
 
@@ -259,7 +258,7 @@ export default function AdvancedFilters({
                                     <select
                                         value={filters.retractions}
                                         onChange={(e) => onFiltersChange({ ...filters, retractions: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                                        className="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent outline-none bg-white dark:bg-gray-950 text-black dark:text-white font-medium transition-all"
                                     >
                                         {retractionOptions.map((option) => (
                                             <option key={option} value={option}>
@@ -271,10 +270,10 @@ export default function AdvancedFilters({
                             </div>
 
                             {/* Sticky Search Button */}
-                            <div className="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
+                            <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t-2 border-gray-200 dark:border-gray-800 p-6">
                                 <motion.button
                                     onClick={onSearch}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
+                                    className="w-full bg-black dark:bg-white text-white dark:text-black font-bold py-3.5 rounded-xl transition-colors hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg"
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
@@ -298,17 +297,17 @@ interface FilterItemProps {
 
 function FilterItem({ title, children, onReset, showReset }: FilterItemProps) {
     return (
-        <div className="flex gap-2">
-            <div className="flex-1 space-y-2">
+        <div className="flex gap-3">
+            <div className="flex-1 space-y-3">
                 <div className="flex items-center justify-between">
-                    <h5 className="font-medium text-gray-900 dark:text-white">{title}</h5>
+                    <h5 className="font-bold text-black dark:text-white">{title}</h5>
                 </div>
                 {children}
             </div>
             {showReset && (
                 <button
                     onClick={onReset}
-                    className="flex-shrink-0 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                    className="flex-shrink-0 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -316,7 +315,7 @@ function FilterItem({ title, children, onReset, showReset }: FilterItemProps) {
                         height="20"
                         fill="none"
                         viewBox="0 0 24 24"
-                        className="text-gray-500"
+                        className="text-gray-500 dark:text-gray-400"
                     >
                         <path
                             fill="currentColor"

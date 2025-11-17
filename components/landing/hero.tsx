@@ -9,11 +9,11 @@ export default function HeroLanding() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const placeholders = [
-    "Cari jurnal berdasarkan judul...",
-    "Masukkan nama jurnal atau subjek...",
-    "Temukan jurnal bereputasi...",
-    "Cari artikel ilmiah...",
-    "Eksplorasi jurnal akademik...",
+    "Enter Journal title....",
+    "Enter journal name or subject...",
+    "Find reputable journals...",
+    "Search scientific articles...",
+    "Explore academic journals...",
   ];
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,18 +25,18 @@ export default function HeroLanding() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-col justify-center items-center text-center space-y-10 py-16 sm:py-24">
+      <div className="flex flex-col justify-center items-center text-center space-y-10 py-2 sm:py-2">
         <div className="space-y-6">
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black dark:text-white tracking-tight">
-            Cari Jurnal Bereputasi
+            Find Reputable Journals
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Platform pencarian jurnal ilmiah dari database SINTA dan API Elsevier
+            Find reputable journals from SINTA database and Elsevier API for your research needs.
           </p>
         </div>
 
         <div className="w-full max-w-5xl px-4">
-          <div className="flex flex-col md:flex-row items-start gap-3">
+          <div className="flex flex-col md:flex-row items-start gap-1 mr-1">
             <div className="flex-1 w-full">
               <PlaceholdersAndVanishInput
                 placeholders={placeholders}
@@ -49,7 +49,7 @@ export default function HeroLanding() {
             </div>
             
             <div className="flex items-start gap-2 w-full md:w-auto md:flex-shrink-0">
-              <span className="text-gray-400 dark:text-gray-500 font-medium pt-3">or</span>
+              <span className="text-gray-400 dark:text-gray-500 font-medium pt-3 mr-5">or</span>
               <div className="flex-1 md:flex-initial">
                 <button
                   onClick={() => router.push('/library')}
@@ -88,7 +88,7 @@ export default function HeroLanding() {
             <svg className="w-5 h-5 text-black dark:text-white" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span>Pencarian Cepat</span>
+            <span>Fast Searching</span>
           </div>
         </div>
       </div>

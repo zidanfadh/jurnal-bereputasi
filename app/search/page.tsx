@@ -111,30 +111,37 @@ function SearchContent() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950">
             <NavbarDemo />
 
             <main className="flex-1 w-full">
-                <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-8 py-8">
-                    {/* Search Bar */}
-                    <div className="mb-8 max-w-4xl">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                            Hasil Pencarian
+                <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    {/* Header Section */}
+                    <div className="mb-10 text-center">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black dark:text-white tracking-tight mb-4">
+                            Search Results
                         </h1>
-                        <form onSubmit={handleSubmit} className="flex gap-2">
+                        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                            Find reputable journals from the SINTA database and Elsevier API
+                        </p>
+                    </div>
+
+                    {/* Search Bar */}
+                    <div className="mb-10 max-w-3xl mx-auto">
+                        <form onSubmit={handleSubmit} className="relative">
                             <input
                                 type="text"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 placeholder="Cari jurnal bereputasi..."
-                                className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                                className="w-full h-14 px-6 pr-32 text-base bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-full focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent outline-none text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 shadow-lg transition-all"
                             />
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold shadow-md"
                             >
-                                {isLoading ? 'Mencari...' : 'Cari'}
+                                {isLoading ? 'Mencari...' : 'Search'}
                             </button>
                         </form>
                     </div>
@@ -144,50 +151,55 @@ function SearchContent() {
                         {/* Results Section - Split Layout */}
                         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {isLoading ? (
-                                <div className="col-span-full text-center py-12">
-                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                                    <p className="mt-4 text-gray-600 dark:text-gray-400">Mencari jurnal...</p>
+                                <div className="col-span-full text-center py-20">
+                                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-black dark:border-gray-800 dark:border-t-white mx-auto"></div>
+                                    <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 font-medium">Mencari jurnal...</p>
                                 </div>
                             ) : (
                                 <>
-                                    {/* Hasil dari Database Lokal */}
-                                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 h-fit">
-                                        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
-                                            <span>📚</span> Dari Database SINTA
-                                        </h2>
-                                        <div className="max-h-[800px] overflow-y-auto pr-2 space-y-4">
+                                    {/* Hasil dari Database SINTA */}
+                                    <div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 px-6 py-5 border-b-2 border-gray-200 dark:border-gray-800">
+                                            <h2 className="text-xl font-bold flex items-center gap-3 text-black dark:text-white">
+                                                <span className="text-2xl">📚</span>
+                                                <span>Database SINTA</span>
+                                            </h2>
+                                        </div>
+                                        <div className="p-6 max-h-[800px] overflow-y-auto space-y-4">
                                             {localResults.length === 0 ? (
-                                                <p className="text-gray-500 dark:text-gray-400">Tidak ada hasil ditemukan.</p>
+                                                <div className="text-center py-12">
+                                                    <p className="text-gray-500 dark:text-gray-400">Tidak ada hasil ditemukan.</p>
+                                                </div>
                                             ) : (
                                                 localResults.map((item) => (
                                                     <div
                                                         key={item.id}
                                                         onClick={() => handleJournalClick(item, 'local')}
-                                                        className={`border p-4 rounded-lg hover:shadow-md transition-all cursor-pointer ${
+                                                        className={`group p-5 rounded-xl border-2 transition-all cursor-pointer ${
                                                             selectedJournal === item
-                                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                                                : 'border-gray-200 dark:border-gray-700'
+                                                                ? 'border-black dark:border-white bg-gray-50 dark:bg-gray-800 shadow-lg'
+                                                                : 'border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 hover:shadow-md'
                                                         }`}
                                                     >
-                                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                                        <h3 className="font-bold text-lg text-black dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                                             {item.title}
                                                         </h3>
-                                                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                                                            Subjek: {item.journal}
+                                                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                                                            <span className="font-semibold">Subjek:</span> {item.journal}
                                                         </p>
-                                                        <div className="flex flex-wrap gap-2 text-xs text-gray-500">
+                                                        <div className="flex flex-wrap gap-2">
                                                             {item.issn && (
-                                                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
+                                                                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
                                                                     ISSN: {item.issn}
                                                                 </span>
                                                             )}
                                                             {item.eissn && (
-                                                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
+                                                                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
                                                                     eISSN: {item.eissn}
                                                                 </span>
                                                             )}
                                                             {item.pissn && (
-                                                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
+                                                                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
                                                                     PISSN: {item.pissn}
                                                                 </span>
                                                             )}
@@ -199,38 +211,43 @@ function SearchContent() {
                                     </div>
 
                                     {/* Hasil dari API Elsevier */}
-                                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 h-fit">
-                                        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
-                                            <span>🌐</span> Dari API Elsevier
-                                        </h2>
-                                        <div className="max-h-[800px] overflow-y-auto pr-2 space-y-4">
+                                    <div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900 px-6 py-5 border-b-2 border-gray-200 dark:border-gray-800">
+                                            <h2 className="text-xl font-bold flex items-center gap-3 text-black dark:text-white">
+                                                <span className="text-2xl">🌐</span>
+                                                <span>API Elsevier</span>
+                                            </h2>
+                                        </div>
+                                        <div className="p-6 max-h-[800px] overflow-y-auto space-y-4">
                                             {externalResults.length === 0 ? (
-                                                <p className="text-gray-500 dark:text-gray-400">Tidak ada hasil ditemukan.</p>
+                                                <div className="text-center py-12">
+                                                    <p className="text-gray-500 dark:text-gray-400">Tidak ada hasil ditemukan.</p>
+                                                </div>
                                             ) : (
                                                 externalResults.map((article, index) => (
                                                     <div
                                                         key={index}
                                                         onClick={() => handleJournalClick(article, 'external')}
-                                                        className={`border p-4 rounded-lg hover:shadow-md transition-all cursor-pointer ${
+                                                        className={`group p-5 rounded-xl border-2 transition-all cursor-pointer ${
                                                             selectedJournal === article
-                                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                                                : 'border-gray-200 dark:border-gray-700'
+                                                                ? 'border-black dark:border-white bg-gray-50 dark:bg-gray-800 shadow-lg'
+                                                                : 'border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 hover:shadow-md'
                                                         }`}
                                                     >
-                                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                                        <h3 className="font-bold text-lg text-black dark:text-white mb-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                                                             {article.title}
                                                         </h3>
                                                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
-                                                            Penulis: {article.author}
+                                                            <span className="font-semibold">Penulis:</span> {article.author}
                                                         </p>
-                                                        <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">
-                                                            Jurnal: {article.journal}
+                                                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                                                            <span className="font-semibold">Jurnal:</span> {article.journal}
                                                         </p>
                                                         <a
                                                             href={article.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="text-blue-500 hover:text-blue-700 text-sm font-medium inline-flex items-center gap-1"
+                                                            className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-semibold"
                                                             onClick={(e) => e.stopPropagation()}
                                                         >
                                                             DOI: {article.doi}
@@ -248,8 +265,8 @@ function SearchContent() {
                         </div>
 
                         {/* Sidebar - Advanced Filters & Preview */}
-                        <aside className="w-80 flex-shrink-0 space-y-4">
-                            <div className="sticky top-8 space-y-4">
+                        <aside className="w-full lg:w-96 flex-shrink-0">
+                            <div className="sticky top-8 space-y-6">
                                 {/* Advanced Filters */}
                                 <AdvancedFilters
                                     isOpen={filtersOpen}
@@ -259,7 +276,7 @@ function SearchContent() {
                                     onSearch={handleSearchWithFilters}
                                 />
 
-                                {/* Journal Preview - Will be covered by filters when open */}
+                                {/* Journal Preview */}
                                 {selectedJournal && !filtersOpen && (
                                     <JournalPreview
                                         journal={selectedJournal}
@@ -273,7 +290,7 @@ function SearchContent() {
                 </div>
             </main>
 
-            <footer className="w-full mt-12">
+            <footer className="w-full border-t-2 border-gray-200 dark:border-gray-800 mt-20">
                 <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
                     <FooterSection />
                 </div>
@@ -285,8 +302,8 @@ function SearchContent() {
 export default function SearchPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-black dark:border-gray-800 dark:border-t-white"></div>
             </div>
         }>
             <SearchContent />
