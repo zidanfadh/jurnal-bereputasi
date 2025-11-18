@@ -28,14 +28,14 @@ export default function HeroLanding() {
       <div className="flex flex-col justify-center items-center text-center space-y-10 py-2 sm:py-2">
         <div className="space-y-6">
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black dark:text-white tracking-tight">
-            Find Reputable Journals
+            Journal Scholar
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Find reputable journals from SINTA database and Elsevier API for your research needs.
           </p>
         </div>
 
-        <div className="w-full max-w-5xl px-4">
+        <div className="w-full max-w-4xl px-1">
           <div className="flex flex-col md:flex-row items-start gap-1 mr-1">
             <div className="flex-1 w-full">
               <PlaceholdersAndVanishInput
@@ -43,7 +43,7 @@ export default function HeroLanding() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onSubmit={handleSearch}
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 text-center">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-5 text-center">
                 Search for new articles using keywords / titles
               </p>
             </div>

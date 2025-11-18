@@ -13,7 +13,7 @@ export default function NavbarDemo() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-bold text-black dark:text-white tracking-tight">
-              Jurnal Bereputasi
+              Journal Scholar
             </Link>
           </div>
 

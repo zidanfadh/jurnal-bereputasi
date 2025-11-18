@@ -1,6 +1,6 @@
 export default function SectionTwo() {
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-1">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
         {/* Recently Saved */}
         <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-3xl border-2 border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-all duration-300">
@@ -50,19 +50,19 @@ export default function SectionTwo() {
             What&apos;s New
           </h2>
           <p className="text-gray-300 dark:text-gray-700 mb-6">
-            Learn about all things Jurnal Bereputasi.
+            Learn about all things Journal Scholar.
           </p>
           
           {/* Welcome Card */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-4 border border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-4 mb-3">
-              <div className="text-sm font-semibold text-gray-900 dark:text-white">Jurnal Bereputasi</div>
+              <div className="text-sm font-semibold text-gray-900 dark:text-white">Journal Scholar</div>
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              Welcome to Jurnal Bereputasi!
+              Welcome to Journal Scholar!
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Temukan jurnal berkualitas untuk penelitian Anda.
+              Find reputable journals for your research needs.
             </p>
           </div>
 

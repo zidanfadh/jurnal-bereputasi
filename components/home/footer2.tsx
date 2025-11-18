@@ -8,33 +8,33 @@ export function FooterSection() {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-xl font-bold text-black dark:text-white mb-4">
-              Jurnal Bereputasi
+              Jurnal Scholar
             </h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">
-              Platform pencarian jurnal bereputasi dari database SINTA dan API Elsevier. 
-              Temukan jurnal ilmiah berkualitas untuk kebutuhan penelitian Anda.
+              platform for searching reputable journals from the SINTA database and Elsevier API. 
+              Find quality scientific journals for your research needs.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className="text-sm font-bold text-black dark:text-white mb-4">
-              Tautan Cepat
+              Links
             </h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-colors">
-                  Beranda
+                  Home
                 </Link>
               </li>
               <li>
                 <Link href="/search" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-colors">
-                  Pencarian
+                  Search
                 </Link>
               </li>
               <li>
                 <a href="#about" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-colors">
-                  Tentang
+                  About
                 </a>
               </li>
             </ul>
@@ -43,7 +43,7 @@ export function FooterSection() {
           {/* Resources */}
           <div>
             <h4 className="text-sm font-bold text-black dark:text-white mb-4">
-              Sumber Daya
+              Resources
             </h4>
             <ul className="space-y-2">
               <li>
@@ -74,7 +74,7 @@ export function FooterSection() {
         <div className="border-t border-gray-200 dark:border-gray-800 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              © {new Date().getFullYear()} Jurnal Bereputasi. All rights reserved.
+              © {new Date().getFullYear()} Journal Scholar. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-colors">
